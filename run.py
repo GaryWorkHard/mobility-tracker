@@ -111,7 +111,9 @@ def main():
             cur = list(csv.DictReader(open(current_path, encoding="utf-8")))
             push_to_sheets(os.environ["SHEET_ID"], os.environ["GOOGLE_SA_JSON"], fresh, cur, log)
             print("pushed to Google Sheets")
-    return 1 if any(l["status"].startswith("FAILED") for l in log) else 0
+    optional = {f"{s['carrier']}|{s['segment']}|{s['url']}" for s in cfg["sources"] if s.get("optional")}
+    required_failures = [l for l in log if l["status"].startswith("FAILED") and f"{l['carrier']}|{l['segment']}|{l['url']}" not in optional]
+    return 1 if required_failures else 0
 
 
 if __name__ == "__main__":
