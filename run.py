@@ -23,6 +23,15 @@ def fixture_name(src):
     return f"{src['carrier']}_{src['segment']}_{src['parser']}".lower().replace(" ", "_") + ".txt"
 
 
+def save_failed_text(data_dir, src, text):
+    """Keep the page text of a failed source in data/raw so it can be inspected (block page? layout change?)."""
+    if not text:
+        return
+    os.makedirs(os.path.join(data_dir, "raw"), exist_ok=True)
+    with open(os.path.join(data_dir, "raw", fixture_name(src)), "w", encoding="utf-8") as f:
+        f.write(text[:60000])
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", default=os.path.join(HERE, "config", "carriers.yaml"))
@@ -47,6 +56,7 @@ def main():
             continue
         entry = {"run_id": run_id, "run_at_utc": now_utc(), "carrier": src["carrier"], "segment": src["segment"],
                  "url": src["url"], "fetch": "fixture" if a.fixtures else src["fetch"], "plans_parsed": 0, "plans_written": 0}
+        text = None
         try:
             attempts = 1 if a.fixtures else 3
             for attempt in range(attempts):
@@ -76,6 +86,7 @@ def main():
                 refreshed.append(src)
             else:
                 entry["status"] = "FAILED - kept previous data"
+                save_failed_text(a.data_dir, src, text)
         except Exception as e:  # noqa: BLE001
             entry.update(status="FAILED - kept previous data", issues=str(e)[:900])
         log.append(entry)
