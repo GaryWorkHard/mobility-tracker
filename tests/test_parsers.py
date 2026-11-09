@@ -65,6 +65,13 @@ class ParserTests(unittest.TestCase):
                 rows = PARSERS[parser](f.read(), src)
             self.assertEqual([(r["price_cad"], r["regular_price_cad"], r["data_gb"]) for r in rows], EXPECTED[key])
 
+    def test_bell_internet_bundle_variant(self):
+        """Bell shows a different promo layout to some visitors (seen from GitHub's servers); same plans."""
+        src = source("Bell", "Postpaid", "bell")
+        with open(os.path.join(HERE, "fixtures", "bell_internet_variant.txt"), encoding="utf-8") as f:
+            rows = PARSERS["bell"](f.read(), src)
+        self.assertEqual([(r["price_cad"], r["regular_price_cad"], r["data_gb"]) for r in rows], EXPECTED[("Bell", "Postpaid", "bell")])
+
     def test_unlimited_flag(self):
         _, rows = parse("TELUS", "Postpaid", "telus")
         self.assertEqual([r["unlimited_data"] for r in rows], ["N", "Y", "Y", "N", "N", "N"])

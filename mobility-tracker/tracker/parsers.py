@@ -166,7 +166,7 @@ def bell(text, src):
     t = norm(text)
     rows = []
     pat = re.compile(r"(?P<name>Select - (?P<gb>\d+) GB with U\.S\. roaming|Ultra Unlimited with [A-Za-z./ ]+?roaming)"
-                     r"(?P<body>.*?)Price with eligible streaming \$(?P<price>\d+)/mo\..*?\$(?P<reg>\d+)/mo\.")
+                     r"(?P<body>.*?)(?:Price with eligible streaming )?\$(?P<price>\d+)/mo\. dollars per month.*?\$(?P<reg>\d+)/mo\.")
     for m in pat.finditer(t):
         unl = m.group("gb") is None
         rows.append(row(src, m.group("name"), m.group("price"), m.group("reg"), data=num(m.group("gb")),

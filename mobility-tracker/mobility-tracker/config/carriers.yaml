@@ -1,0 +1,29 @@
+# One entry per source page. To add a carrier: copy an entry, set carrier + url + segment,
+# and leave parser as "generic". Generic rows are flagged "Review" until a parser is written.
+# fetch: "http"     = plain HTTP GET, page text extracted (fast, tiny data use)
+#        "headless" = Playwright renders the page first (needed when prices load via JavaScript)
+settings:
+  min_price: 5
+  max_price: 200
+  max_day_change_pct: 25      # larger price moves are flagged "Review", not silently written
+  user_agent: "Mozilla/5.0 (compatible; MobilityPriceTracker/1.0)"
+  request_timeout_s: 30
+  delay_between_sources_s: 3
+
+sources:
+  - {carrier: TELUS,       segment: Postpaid, url: "https://www.telus.com/en/shop/mobility/plans/bring-your-own-device", fetch: headless, parser: telus,   min_plans: 5, wait_ms: 8000}
+  - {carrier: Bell,        segment: Postpaid, url: "https://www.bell.ca/Mobility/Cell_phone_plans",                     fetch: headless, parser: bell,    min_plans: 3, wait_ms: 6000}
+  - {carrier: Rogers,      segment: Postpaid, url: "https://www.rogers.com/plans",                                       fetch: http,     parser: rogers,  min_plans: 4}
+  - {carrier: Fido,        segment: Postpaid, url: "https://www.fido.ca/phones/bring-your-own-device",                   fetch: headless, parser: fido,    min_plans: 3, wait_ms: 8000, actions: ["click:text=View more plans"]}
+  - {carrier: Koodo,       segment: Postpaid, url: "https://www.koodomobile.com/en/shop/mobility/plans/bring-your-own-phone", fetch: headless, parser: koodo, min_plans: 5, wait_ms: 8000}
+  - {carrier: Koodo,       segment: Prepaid,  url: "https://www.koodomobile.com/en/prepaid-plans",                       fetch: headless, parser: koodo_prepaid, min_plans: 4, wait_ms: 6000}
+  - {carrier: Freedom,     segment: Postpaid, url: "https://shop.freedommobile.ca/en-CA/plans",                          fetch: headless, parser: freedom, min_plans: 6, wait_ms: 6000}
+  - {carrier: Freedom,     segment: Prepaid,  url: "https://shop.freedommobile.ca/en-CA/prepaid-plans",                  fetch: headless, parser: freedom, min_plans: 4, wait_ms: 6000}
+  - {carrier: "Virgin Plus", segment: Postpaid, url: "https://www.virginplus.ca/en/plans/postpaid.html#!/BYOP/research", fetch: headless, parser: virgin,  min_plans: 4, wait_ms: 8000}
+  - {carrier: Kini Mobile, segment: Prepaid,  url: "https://www.kinimobile.com/ca/en",                                   fetch: http,     parser: kini,    min_plans: 3}
+  - {carrier: Kini Mobile, segment: Prepaid,  url: "https://www.kinimobile.com/ca/en/plans",                             fetch: headless, parser: kini,    min_plans: 3, wait_ms: 6000}
+  - {carrier: CTExcel,     segment: Prepaid,  url: "https://www.ctexcel.ca/newversion/home",                             fetch: headless, parser: ctexcel, min_plans: 3, wait_ms: 8000}
+  - {carrier: CTExcel,     segment: Postpaid, url: "https://www.ctexcel.ca/newversion/home",                             fetch: headless, parser: ctexcel, min_plans: 2, wait_ms: 8000, actions: ["click:text=后付费"]}
+  - {carrier: PhoneBox,    segment: Postpaid, url: "https://phoneboxmobile.ca/plans",                                    fetch: http,     parser: phonebox, min_plans: 3}
+  - {carrier: PhoneBox,    segment: Prepaid,  url: "https://phoneboxmobile.ca/plans?plan-type=prepaid",                  fetch: http,     parser: phonebox, min_plans: 1}
+  - {carrier: PhoneBox,    segment: Mixed,    url: "https://welcome.gophonebox.com/hi-canada/",                          fetch: http,     parser: gophonebox, min_plans: 5}

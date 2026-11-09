@@ -20,8 +20,7 @@ sources:
   - {carrier: Freedom,     segment: Postpaid, url: "https://shop.freedommobile.ca/en-CA/plans",                          fetch: headless, parser: freedom, min_plans: 6, wait_ms: 6000}
   - {carrier: Freedom,     segment: Prepaid,  url: "https://shop.freedommobile.ca/en-CA/prepaid-plans",                  fetch: headless, parser: freedom, min_plans: 4, wait_ms: 6000}
   - {carrier: "Virgin Plus", segment: Postpaid, url: "https://www.virginplus.ca/en/plans/postpaid.html#!/BYOP/research", fetch: headless, parser: virgin,  min_plans: 4, wait_ms: 8000}
-  - {carrier: Kini Mobile, segment: Prepaid,  url: "https://www.kinimobile.com/ca/en",                                   fetch: http,     parser: kini,    min_plans: 3}
-  - {carrier: Kini Mobile, segment: Prepaid,  url: "https://www.kinimobile.com/ca/en/plans",                             fetch: headless, parser: kini,    min_plans: 3, wait_ms: 6000}
+  - {carrier: Kini Mobile, segment: Prepaid,  url: "https://www.kinimobile.com/ca/en/plans",                             fetch: headless, parser: kini,    min_plans: 3, wait_ms: 6000, optional: true}   # blocks cloud servers (403); failure does not fail the run
   - {carrier: CTExcel,     segment: Prepaid,  url: "https://www.ctexcel.ca/newversion/home",                             fetch: headless, parser: ctexcel, min_plans: 3, wait_ms: 8000}
   - {carrier: CTExcel,     segment: Postpaid, url: "https://www.ctexcel.ca/newversion/home",                             fetch: headless, parser: ctexcel, min_plans: 2, wait_ms: 8000, actions: ["click:text=后付费"]}
   - {carrier: PhoneBox,    segment: Postpaid, url: "https://phoneboxmobile.ca/plans",                                    fetch: http,     parser: phonebox, min_plans: 3}
