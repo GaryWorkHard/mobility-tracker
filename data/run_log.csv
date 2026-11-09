@@ -46,3 +46,18 @@ run_id,run_at_utc,carrier,segment,url,fetch,status,plans_parsed,plans_written,is
 20261109T033830,2026-11-09T03:41:36Z,PhoneBox,Postpaid,https://phoneboxmobile.ca/plans,http,OK,4,4,
 20261109T033830,2026-11-09T03:41:39Z,PhoneBox,Prepaid,https://phoneboxmobile.ca/plans?plan-type=prepaid,http,OK,2,2,
 20261109T033830,2026-11-09T03:41:42Z,PhoneBox,Mixed,https://welcome.gophonebox.com/hi-canada/,http,OK,10,10,
+20261109T035319,2026-11-09T03:53:19Z,TELUS,Postpaid,https://www.telus.com/en/shop/mobility/plans/bring-your-own-device,headless,OK,6,6,
+20261109T035319,2026-11-09T03:53:34Z,Bell,Postpaid,https://www.bell.ca/Mobility/Cell_phone_plans,headless,OK,3,3,
+20261109T035319,2026-11-09T03:53:48Z,Rogers,Postpaid,https://www.rogers.com/plans,http,OK,4,4,
+20261109T035319,2026-11-09T03:53:51Z,Fido,Postpaid,https://www.fido.ca/phones/bring-your-own-device,headless,OK with review flags,4,4,plan no longer seen: Canada-Wide 5G & Us-Mexico Roam 60GB
+20261109T035319,2026-11-09T03:54:10Z,Koodo,Postpaid,https://www.koodomobile.com/en/shop/mobility/plans/bring-your-own-phone,headless,OK,9,9,
+20261109T035319,2026-11-09T03:54:25Z,Koodo,Prepaid,https://www.koodomobile.com/en/prepaid-plans,headless,OK,5,5,
+20261109T035319,2026-11-09T03:54:37Z,Freedom,Postpaid,https://shop.freedommobile.ca/en-CA/plans,headless,OK,9,9,
+20261109T035319,2026-11-09T03:54:49Z,Freedom,Prepaid,https://shop.freedommobile.ca/en-CA/prepaid-plans,headless,OK,6,6,
+20261109T035319,2026-11-09T03:55:02Z,Virgin Plus,Postpaid,https://www.virginplus.ca/en/plans/postpaid.html#!/BYOP/research,headless,OK,6,6,needed 2 attempts | 
+20261109T035319,2026-11-09T03:55:35Z,Kini Mobile,Prepaid,https://www.kinimobile.com/ca/en/plans,headless,OK,4,4,
+20261109T035319,2026-11-09T03:55:47Z,CTExcel,Prepaid,https://www.ctexcel.ca/newversion/home,headless,OK,5,5,
+20261109T035319,2026-11-09T03:56:01Z,CTExcel,Postpaid,https://www.ctexcel.ca/newversion/home,headless,OK,3,3,
+20261109T035319,2026-11-09T03:56:18Z,PhoneBox,Postpaid,https://phoneboxmobile.ca/plans,http,OK,4,4,
+20261109T035319,2026-11-09T03:56:21Z,PhoneBox,Prepaid,https://phoneboxmobile.ca/plans?plan-type=prepaid,http,OK,2,2,
+20261109T035319,2026-11-09T03:56:24Z,PhoneBox,Mixed,https://welcome.gophonebox.com/hi-canada/,http,OK,10,10,
