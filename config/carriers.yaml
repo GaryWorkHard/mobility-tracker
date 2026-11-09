@@ -3,6 +3,7 @@
 # fetch: "http"     = plain HTTP GET, page text extracted (fast, tiny data use)
 #        "headless" = Playwright renders the page first (needed when prices load via JavaScript)
 settings:
+  timezone: America/Toronto   # capture_date is the date in this timezone (GitHub servers run on UTC)
   min_price: 5
   max_price: 200
   max_day_change_pct: 25      # larger price moves are flagged "Review", not silently written

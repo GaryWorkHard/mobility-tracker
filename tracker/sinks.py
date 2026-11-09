@@ -71,3 +71,26 @@ def push_to_sheets(sheet_id, sa_json_path, history_rows, current_rows, log_rows)
 
 def now_utc():
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def fix_capture_dates(path, tz):
+    """Set capture_date from run_id (a UTC timestamp) converted to the local timezone.
+    Safe to repeat: rows already correct are unchanged."""
+    rows = _read(path)
+    if not rows:
+        return
+    changed = False
+    for r in rows:
+        rid = r.get("run_id") or ""
+        try:
+            local = datetime.strptime(rid, "%Y%m%dT%H%M%S").replace(tzinfo=timezone.utc).astimezone(tz).date().isoformat()
+        except ValueError:
+            continue
+        if r.get("capture_date") != local:
+            r["capture_date"] = local
+            changed = True
+    if changed:
+        with open(path, "w", newline="", encoding="utf-8") as f:
+            w = csv.DictWriter(f, fieldnames=COLUMNS, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(rows)

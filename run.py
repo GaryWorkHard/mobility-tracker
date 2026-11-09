@@ -7,13 +7,14 @@ import argparse
 import os
 import sys
 import time
-from datetime import date
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 import yaml
 
 from tracker.fetch import fetch_text
 from tracker.parsers import COLUMNS, PARSERS
-from tracker.sinks import (LOG_COLUMNS, append_csv, now_utc, previous_prices, push_to_sheets, write_current)
+from tracker.sinks import (LOG_COLUMNS, append_csv, fix_capture_dates, now_utc, previous_prices, push_to_sheets, write_current)
 from tracker.validate import validate_source
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -47,8 +48,9 @@ def main():
     os.makedirs(a.data_dir, exist_ok=True)
     current_path = os.path.join(a.data_dir, "current.csv")
     prev = previous_prices(current_path)
-    run_id = time.strftime("%Y%m%dT%H%M%S")
-    today = date.today().isoformat()
+    tz = ZoneInfo(settings.get("timezone", "America/Toronto"))
+    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S")  # always UTC
+    today = datetime.now(tz).date().isoformat()  # capture_date uses the local business timezone
     fresh, refreshed, log = [], [], []
 
     for src in cfg["sources"]:
@@ -106,6 +108,8 @@ def main():
         append_csv(os.path.join(a.data_dir, "history.csv"), fresh, COLUMNS)
         write_current(current_path, fresh, refreshed, cfg["sources"])
         append_csv(os.path.join(a.data_dir, "run_log.csv"), log, LOG_COLUMNS)
+        for name in ("history.csv", "current.csv"):  # repairs rows stamped with the UTC date
+            fix_capture_dates(os.path.join(a.data_dir, name), tz)
         if os.environ.get("SHEET_ID", "").strip() and not os.environ["SHEET_ID"].startswith("PASTE") and os.environ.get("GOOGLE_SA_JSON"):
             import csv
             cur = list(csv.DictReader(open(current_path, encoding="utf-8")))
