@@ -104,7 +104,7 @@ def main():
 
     if not a.dry_run:
         append_csv(os.path.join(a.data_dir, "history.csv"), fresh, COLUMNS)
-        write_current(current_path, fresh, refreshed)
+        write_current(current_path, fresh, refreshed, cfg["sources"])
         append_csv(os.path.join(a.data_dir, "run_log.csv"), log, LOG_COLUMNS)
         if os.environ.get("SHEET_ID", "").strip() and not os.environ["SHEET_ID"].startswith("PASTE") and os.environ.get("GOOGLE_SA_JSON"):
             import csv
