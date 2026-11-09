@@ -35,10 +35,12 @@ def append_csv(path, rows, columns):
         w.writerows(rows)
 
 
-def write_current(path, fresh_rows, refreshed_sources):
-    """Replace rows for sources that refreshed this run; keep last good rows for the rest."""
+def write_current(path, fresh_rows, refreshed_sources, all_sources):
+    """Replace rows for sources that refreshed this run; keep last good rows for the rest.
+    Rows from sources no longer in the config are dropped, so removed pages do not linger."""
     refreshed = {f"{s['carrier']}|{s['segment']}|{s['url']}" for s in refreshed_sources}
-    keep = [r for r in _read(path) if r.get("source_id", "") not in refreshed]
+    configured = {f"{s['carrier']}|{s['segment']}|{s['url']}" for s in all_sources}
+    keep = [r for r in _read(path) if r.get("source_id", "") not in refreshed and r.get("source_id", "") in configured]
     with open(path, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=COLUMNS, extrasaction="ignore")
         w.writeheader()

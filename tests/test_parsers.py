@@ -72,6 +72,25 @@ class ParserTests(unittest.TestCase):
             rows = PARSERS["bell"](f.read(), src)
         self.assertEqual([(r["price_cad"], r["regular_price_cad"], r["data_gb"]) for r in rows], EXPECTED[("Bell", "Postpaid", "bell")])
 
+    def test_pay_per_use_plan_has_no_speed_and_fido_name(self):
+        _, rows = parse("TELUS", "Postpaid", "telus")
+        self.assertEqual(rows[-1]["speed"], "")
+        _, fido = parse("Fido", "Postpaid", "fido")
+        self.assertIn("Canada-Wide 5G & US-Mexico Roam 60GB", [r["plan_name"] for r in fido])
+
+    def test_removed_source_rows_are_dropped_from_current(self):
+        import csv, tempfile
+        from tracker.sinks import write_current
+        src, rows = parse("Koodo", "Prepaid", "koodo_prepaid")
+        with tempfile.TemporaryDirectory() as d:
+            path = os.path.join(d, "current.csv")
+            stale = dict(rows[0], source_id="Kini Mobile|Prepaid|https://old.example/home", carrier="Kini Mobile")
+            write_current(path, [stale], [{"carrier": "Kini Mobile", "segment": "Prepaid", "url": "https://old.example/home"}],
+                          [{"carrier": "Kini Mobile", "segment": "Prepaid", "url": "https://old.example/home"}])
+            write_current(path, rows, [src], [src])   # old source no longer configured
+            got = list(csv.DictReader(open(path, encoding="utf-8")))
+            self.assertEqual({r["carrier"] for r in got}, {"Koodo"})
+
     def test_unlimited_flag(self):
         _, rows = parse("TELUS", "Postpaid", "telus")
         self.assertEqual([r["unlimited_data"] for r in rows], ["N", "Y", "Y", "N", "N", "N"])

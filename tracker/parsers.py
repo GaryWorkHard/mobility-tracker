@@ -65,7 +65,8 @@ def telus(text, src):
         group = last_heading(m.start(), heads) or "5G+"
         unl = "Unlimited data" in m.group(0)
         rows.append(row(src, f"{group} - {m.group('name').strip()}", m.group("price"), m.group("reg"),
-                        data=num(m.group("gb")), unlimited=unl, speed=speed_of(m.group("rest")) or "5G+",
+                        data=num(m.group("gb")), unlimited=unl,
+                        speed=(speed_of(m.group("rest")) or "5G+") if (unl or m.group("gb")) else "",
                         detail=m.group("rest"), plan_type="BYOD"))
     return rows
 
@@ -154,7 +155,7 @@ def fido(text, src):
     pat = re.compile(r"(?P<name>CANADA-WIDE 5G(?: & US-MEXICO ROAM)?) (?P<gb>\d+)GB, Talk & Text - BYOP Plan "
                      r"\$(?P<price>\d+)\.\d+ per mo\. \$ ?\d+ \.\d+ /mo\.(?: \$(?P<reg>\d+)\.\d+)?(?=(?P<rest>.{0,300}))")
     for m in pat.finditer(t):
-        rows.append(row(src, f"{m.group('name').title()} {m.group('gb')}GB", m.group("price"), m.group("reg"),
+        rows.append(row(src, f"{m.group('name').title().replace('Us-Mexico', 'US-Mexico')} {m.group('gb')}GB", m.group("price"), m.group("reg"),
                         data=num(m.group("gb")), speed="5G up to 1 Gbps", detail=m.group("rest"), plan_type="BYOD"))
     for m in re.finditer(r"(\d+)MB Basic Plan - BYOP Plan \$(\d+)\.\d+ per mo\.(?=(?P<rest>.{0,200}))", t):
         rows.append(row(src, f"{m.group(1)}MB Basic Plan", m.group(2), data=gb(m.group(1), "MB"),
