@@ -76,3 +76,18 @@ run_id,run_at_utc,carrier,segment,url,fetch,status,plans_parsed,plans_written,is
 20261109T133037,2026-11-09T13:33:23Z,PhoneBox,Postpaid,https://phoneboxmobile.ca/plans,http,OK,4,4,
 20261109T133037,2026-11-09T13:33:26Z,PhoneBox,Prepaid,https://phoneboxmobile.ca/plans?plan-type=prepaid,http,OK,2,2,
 20261109T133037,2026-11-09T13:33:30Z,PhoneBox,Mixed,https://welcome.gophonebox.com/hi-canada/,http,OK,10,10,
+20261109T212743,2026-11-09T21:27:43Z,TELUS,Postpaid,https://www.telus.com/en/shop/mobility/plans/bring-your-own-device,headless,OK,6,6,
+20261109T212743,2026-11-09T21:27:59Z,Bell,Postpaid,https://www.bell.ca/Mobility/Cell_phone_plans,headless,OK,3,3,
+20261109T212743,2026-11-09T21:28:12Z,Rogers,Postpaid,https://www.rogers.com/plans,http,OK,4,4,
+20261109T212743,2026-11-09T21:28:15Z,Fido,Postpaid,https://www.fido.ca/phones/bring-your-own-device,headless,OK,4,4,
+20261109T212743,2026-11-09T21:28:34Z,Koodo,Postpaid,https://www.koodomobile.com/en/shop/mobility/plans/bring-your-own-phone,headless,OK,9,9,
+20261109T212743,2026-11-09T21:28:49Z,Koodo,Prepaid,https://www.koodomobile.com/en/prepaid-plans,headless,OK,5,5,
+20261109T212743,2026-11-09T21:29:01Z,Freedom,Postpaid,https://shop.freedommobile.ca/en-CA/plans,headless,OK,9,9,
+20261109T212743,2026-11-09T21:29:14Z,Freedom,Prepaid,https://shop.freedommobile.ca/en-CA/prepaid-plans,headless,OK,6,6,
+20261109T212743,2026-11-09T21:29:26Z,Virgin Plus,Postpaid,https://www.virginplus.ca/en/plans/postpaid.html#!/BYOP/research,headless,OK,6,6,needed 2 attempts | 
+20261109T212743,2026-11-09T21:30:01Z,Kini Mobile,Prepaid,https://www.kinimobile.com/ca/en/plans,headless,OK,4,4,
+20261109T212743,2026-11-09T21:30:14Z,CTExcel,Prepaid,https://www.ctexcel.ca/newversion/home,headless,FAILED - kept previous data,0,0,"needed 3 attempts | only 0 usable Prepaid plans parsed, expected at least 3 | plan no longer seen: 500MB 4G Canada-wide | plan no longer seen: 5GB 4G Canada-wide | plan no longer seen: 15GB 4G Canada-wide | plan no longer seen: 30GB 4G Canada-wide | plan no longer seen: 75GB 4G Canada-wide"
+20261109T212743,2026-11-09T21:31:10Z,CTExcel,Postpaid,https://www.ctexcel.ca/newversion/home,headless,FAILED - kept previous data,0,0,"needed 3 attempts | only 0 usable Postpaid plans parsed, expected at least 2 | plan no longer seen: 20GB 5G Canada-wide | plan no longer seen: 60GB 5G Canada-US-Mexico | plan no longer seen: 100GB 5G Canada-wide"
+20261109T212743,2026-11-09T21:32:17Z,PhoneBox,Postpaid,https://phoneboxmobile.ca/plans,http,OK,4,4,
+20261109T212743,2026-11-09T21:32:20Z,PhoneBox,Prepaid,https://phoneboxmobile.ca/plans?plan-type=prepaid,http,OK,2,2,
+20261109T212743,2026-11-09T21:32:23Z,PhoneBox,Mixed,https://welcome.gophonebox.com/hi-canada/,http,OK,10,10,
